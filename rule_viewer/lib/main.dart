@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
+  bool _searchPanelOpen = false;
 
   List<int> _calculateVisibleRuleIndices(String query) {
     final model = getRulesModel();
@@ -256,38 +257,61 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _searchController,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: 'Search script text',
-                    hintStyle: const TextStyle(color: Colors.white54),
-                    filled: true,
-                    fillColor: Theme.of(context).cardColor,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Theme.of(context).dividerColor),
-                    ),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.search, color: Colors.white),
-                      onPressed: _applySearch,
+          InkWell(
+            onTap: () => setState(() => _searchPanelOpen = !_searchPanelOpen),
+            child: Row(
+              children: [
+                const Icon(Icons.search, color: Colors.white),
+                const SizedBox(width: 8),
+                const Expanded(
+                  child: Text(
+                    'Search scripts',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Icon(
+                  _searchPanelOpen ? Icons.expand_less : Icons.expand_more,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+          if (_searchPanelOpen)
+            Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _searchController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Search script text',
+                        hintStyle: const TextStyle(color: Colors.white54),
+                        filled: true,
+                        fillColor: Theme.of(context).cardColor,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).dividerColor),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search, color: Colors.white),
+                          onPressed: _applySearch,
+                        ),
+                      ),
+                      onSubmitted: (_) => _applySearch(),
                     ),
                   ),
-                  onSubmitted: (_) => _applySearch(),
-                ),
+                  if (_searchQuery.isNotEmpty)
+                    IconButton(
+                      icon: const Icon(Icons.clear, color: Colors.white),
+                      onPressed: () {
+                        _searchController.clear();
+                        _updateSearchQuery('');
+                      },
+                    ),
+                ],
               ),
-              if (_searchQuery.isNotEmpty)
-                IconButton(
-                  icon: const Icon(Icons.clear, color: Colors.white),
-                  onPressed: () {
-                    _searchController.clear();
-                    _updateSearchQuery('');
-                  },
-                ),
-            ],
-          ),
+            ),
           const SizedBox(height: 12),
           if (!hasMatches)
             Padding(
