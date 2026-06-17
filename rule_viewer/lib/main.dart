@@ -70,7 +70,45 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Loaded filename
   String? _loadedFileName;
 
-  /// Get the rules model
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
+  List<int> _calculateVisibleRuleIndices(String query) {
+    final model = getRulesModel();
+    if (model == null) return [];
+
+    final normalized = query.trim().toLowerCase();
+    if (normalized.isEmpty) {
+      return List<int>.generate(model.items.length, (index) => index);
+    }
+
+    return model.items.asMap().entries
+        .where((entry) => entry.value.pipeline.any((stage) {
+              final script = stage.script;
+              return script != null && script.toLowerCase().contains(normalized);
+            }))
+        .map((entry) => entry.key)
+        .toList();
+  }
+
+  List<int> get _visibleRuleIndices => _calculateVisibleRuleIndices(_searchQuery);
+
+  void _updateSearchQuery(String query) {
+    final normalized = query.trim();
+    final visible = _calculateVisibleRuleIndices(normalized);
+
+    setState(() {
+      _searchQuery = normalized;
+      if (_selectedRuleIndex == null || !visible.contains(_selectedRuleIndex)) {
+        _selectedRuleIndex = visible.isNotEmpty ? visible.first : null;
+      }
+    });
+  }
+
+  void _applySearch() {
+    _updateSearchQuery(_searchController.text);
+  }
+
   AutomationRuleList? getRulesModel() {
     return _rulesModel;
   }
@@ -198,12 +236,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   /// Build the rule selector dropdown at the top
   Widget _buildRuleSelector() {
-    if (getRulesModel() == null || getRulesModel()!.items.isEmpty) {
+    if (getRulesModel() == null) {
       return const Padding(
         padding: EdgeInsets.all(16),
         child: Text('No rules available'),
       );
     }
+
+    final visibleIndices = _visibleRuleIndices;
+    final hasMatches = visibleIndices.isNotEmpty;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -212,37 +253,83 @@ class _MyHomePageState extends State<MyHomePage> {
           bottom: BorderSide(color: Theme.of(context).dividerColor),
         ),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Select Rule:'),
-          const SizedBox(width: 16),
-          Expanded(
-            child: DropdownButton<int>(
-              isExpanded: true,
-              value: _selectedRuleIndex,
-              items: List.generate(
-                getRulesModel()!.items.length,
-                (index) {
-                  final rule = getRulesModel()!.items[index];
-                  final displayName =
-                      rule.description.isNotEmpty ? rule.description : 'Rule $index';
-                  return DropdownMenuItem<int>(
-                    value: index,
-                    child: Text(displayName),
-                  );
-                },
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _searchController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Search script text',
+                    hintStyle: const TextStyle(color: Colors.white54),
+                    filled: true,
+                    fillColor: Theme.of(context).cardColor,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).dividerColor),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.search, color: Colors.white),
+                      onPressed: _applySearch,
+                    ),
+                  ),
+                  onSubmitted: (_) => _applySearch(),
+                ),
               ),
-              dropdownColor: Theme.of(context).cardColor,
-              style: const TextStyle(color: Colors.white),
-              onChanged: (newIndex) {
-                if (newIndex != null) {
-                  setState(() {
-                    _selectedRuleIndex = newIndex;
-                  });
-                }
-              },
-            ),
+              if (_searchQuery.isNotEmpty)
+                IconButton(
+                  icon: const Icon(Icons.clear, color: Colors.white),
+                  onPressed: () {
+                    _searchController.clear();
+                    _updateSearchQuery('');
+                  },
+                ),
+            ],
           ),
+          const SizedBox(height: 12),
+          if (!hasMatches)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                getRulesModel()!.items.isEmpty
+                    ? 'No rules available'
+                    : 'No matching scripts found',
+                style: const TextStyle(color: Colors.white70),
+              ),
+            )
+          else
+            Row(
+              children: [
+                const Text('Select Rule:'),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: DropdownButton<int>(
+                    isExpanded: true,
+                    value: _selectedRuleIndex,
+                    items: visibleIndices.map((index) {
+                      final rule = getRulesModel()!.items[index];
+                      final displayName =
+                          rule.description.isNotEmpty ? rule.description : 'Rule $index';
+                      return DropdownMenuItem<int>(
+                        value: index,
+                        child: Text(displayName),
+                      );
+                    }).toList(),
+                    dropdownColor: Theme.of(context).cardColor,
+                    style: const TextStyle(color: Colors.white),
+                    onChanged: (newIndex) {
+                      if (newIndex != null) {
+                        setState(() {
+                          _selectedRuleIndex = newIndex;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
         ],
       ),
     );
@@ -371,6 +458,64 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildScriptText(String script) {
+    if (_searchQuery.isEmpty) {
+      return SelectableText(
+        script,
+        style: const TextStyle(
+          fontFamily: 'Courier New',
+          fontSize: 11,
+          color: Colors.white70,
+        ),
+      );
+    }
+
+    final query = _searchQuery.toLowerCase();
+    final matches = RegExp(RegExp.escape(query), caseSensitive: false).allMatches(script);
+    if (matches.isEmpty) {
+      return SelectableText(
+        script,
+        style: const TextStyle(
+          fontFamily: 'Courier New',
+          fontSize: 11,
+          color: Colors.white70,
+        ),
+      );
+    }
+
+    final spans = <TextSpan>[];
+    var lastEnd = 0;
+    for (final match in matches) {
+      if (match.start > lastEnd) {
+        spans.add(TextSpan(text: script.substring(lastEnd, match.start)));
+      }
+      spans.add(TextSpan(
+        text: script.substring(match.start, match.end),
+        style: const TextStyle(
+          backgroundColor: Colors.yellow,
+          color: Colors.black,
+          fontFamily: 'Courier New',
+          fontSize: 11,
+        ),
+      ));
+      lastEnd = match.end;
+    }
+    if (lastEnd < script.length) {
+      spans.add(TextSpan(text: script.substring(lastEnd)));
+    }
+
+    return SelectableText.rich(
+      TextSpan(
+        style: const TextStyle(
+          fontFamily: 'Courier New',
+          fontSize: 11,
+          color: Colors.white70,
+        ),
+        children: spans,
+      ),
+    );
+  }
+
   /// Build the script display area
   Widget _buildScriptDisplay() {
     if (_selectedRule == null) {
@@ -412,17 +557,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: script.length == 1
-                          ? HighlightView(
-                              script[0],
-                              language: 'javascript',
-                              theme: atomOneDarkTheme,
-                              padding: const EdgeInsets.all(8),
-                              textStyle: const TextStyle(
-                                fontFamily: 'Courier New',
-                                fontSize: 11,
-                                color: Colors.white70,
-                              ),
-                            )
+                          ? _buildScriptText(script[0])
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: List.generate(
@@ -442,17 +577,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ),
                                       ),
                                       const SizedBox(height: 4),
-                                      HighlightView(
-                                        script[index],
-                                        language: 'javascript',
-                                        theme: atomOneDarkTheme,
-                                        padding: const EdgeInsets.all(8),
-                                        textStyle: const TextStyle(
-                                          fontFamily: 'Courier New',
-                                          fontSize: 11,
-                                          color: Colors.white70,
-                                        ),
-                                      ),
+                                      _buildScriptText(script[index]),
                                     ],
                                   ),
                                 ),
