@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         textTheme: base.textTheme.apply(bodyColor: Colors.white, displayColor: Colors.white),
       ),
       home: const MyHomePage(title: 'Automation Rules Viewer'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -69,15 +70,20 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Loaded filename
   String? _loadedFileName;
 
+  /// Get the rules model
+  AutomationRuleList? getRulesModel() {
+    return _rulesModel;
+  }
+
   /// Get the current app state based on whether a model is loaded
   AppState get _appState =>
-      _rulesModel != null ? AppState.loaded : AppState.unloaded;
+      getRulesModel() != null ? AppState.loaded : AppState.unloaded;
 
   /// Get the currently selected rule
   AutomationRule? get _selectedRule {
-    if (_rulesModel == null || _selectedRuleIndex == null) return null;
-    if (_selectedRuleIndex! >= _rulesModel!.items.length) return null;
-    return _rulesModel!.items[_selectedRuleIndex!];
+    if (getRulesModel() == null || _selectedRuleIndex == null) return null;
+    if (_selectedRuleIndex! >= getRulesModel()!.items.length) return null;
+    return getRulesModel()!.items[_selectedRuleIndex!];
   }
 
   /// Load a model (typically from JSON)
@@ -192,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   /// Build the rule selector dropdown at the top
   Widget _buildRuleSelector() {
-    if (_rulesModel == null || _rulesModel!.items.isEmpty) {
+    if (getRulesModel() == null || getRulesModel()!.items.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(16),
         child: Text('No rules available'),
@@ -215,9 +221,9 @@ class _MyHomePageState extends State<MyHomePage> {
               isExpanded: true,
               value: _selectedRuleIndex,
               items: List.generate(
-                _rulesModel!.items.length,
+                getRulesModel()!.items.length,
                 (index) {
-                  final rule = _rulesModel!.items[index];
+                  final rule = getRulesModel()!.items[index];
                   final displayName =
                       rule.description.isNotEmpty ? rule.description : 'Rule $index';
                   return DropdownMenuItem<int>(
