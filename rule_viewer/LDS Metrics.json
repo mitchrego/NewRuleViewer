@@ -1,0 +1,2600 @@
+{
+    "items": [
+        {
+            "id": 231,
+            "version": 17805402,
+            "metricId": "CustomFormulaMetric",
+            "name": "People Count for ART",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "agilereleasetrain"
+            ],
+            "customMetricSettings": {
+                "formula": "Teams.Sum(PeopleCount)",
+                "targetFieldName": "People Count"
+            }
+        },
+        {
+            "id": 232,
+            "version": 17805417,
+            "metricId": "CustomFormulaMetric",
+            "name": "People Count for Team",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "team"
+            ],
+            "customMetricSettings": {
+                "formula": "TeamMembers.Count()",
+                "targetFieldName": "People Count"
+            }
+        },
+        {
+            "id": 233,
+            "version": 17805433,
+            "metricId": "CustomFormulaMetric",
+            "name": "Risk RAG",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "risk"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(RiskScore = 1 || RiskScore = 2 || Convert.ToInt32(Impact.Substring(0,1)) = 1 && (Probability.Substring(0,1) = \"3\" || Probability.Substring(0,1) = \"4\"), \"Green\", IIF(RiskScore = 3 && Impact.Substring(0,1) = \"3\" || RiskScore = 4 && Convert.ToInt32(Impact.Substring(0,1)) > 1 || Probability.Substring(0,1) != \"5\" && (RiskScore > 4 && RiskScore < 10), \"Amber\", IIF(RiskScore != 0, \"Red\", \"\")))",
+                "targetFieldName": "RAG"
+            }
+        },
+        {
+            "id": 234,
+            "version": 17805434,
+            "metricId": "CustomFormulaMetric",
+            "name": "Risk Reduction for Risk Action",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "riskaction"
+            ],
+            "customMetricSettings": {
+                "formula": "RiskScore-PostActionRiskScore",
+                "targetFieldName": "Risk Reduction"
+            }
+        },
+        {
+            "id": 235,
+            "version": 17805435,
+            "metricId": "CustomFormulaMetric",
+            "name": "Risk Planned End Date",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "risk"
+            ],
+            "customMetricSettings": {
+                "formula": "RiskActions.Max(PlannedEndDate)",
+                "targetFieldName": "PlannedEndDate"
+            }
+        },
+        {
+            "id": 236,
+            "version": 17805436,
+            "metricId": "CustomFormulaMetric",
+            "name": "Risk Score",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "riskaction"
+            ],
+            "customMetricSettings": {
+                "formula": "Risk.RiskScore",
+                "targetFieldName": "Risk Score"
+            }
+        },
+        {
+            "id": 237,
+            "version": 17805437,
+            "metricId": "CustomFormulaMetric",
+            "name": "Risk Score",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "risk"
+            ],
+            "customMetricSettings": {
+                "formula": "Convert.ToInt32(Impact.Substring(0,1))*Convert.ToInt32(Probability.Substring(0,1))",
+                "targetFieldName": "Risk Score"
+            }
+        },
+        {
+            "id": 238,
+            "version": 17805438,
+            "metricId": "CustomFormulaMetric",
+            "name": "Post Action Risk Score",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "riskaction"
+            ],
+            "customMetricSettings": {
+                "formula": "Convert.ToInt32(PostActionImpact.Substring(0,1))*Convert.ToInt32(PostActionProbability.Substring(0,1))",
+                "targetFieldName": "Post Action Risk Score"
+            }
+        },
+        {
+            "id": 239,
+            "version": 17805468,
+            "metricId": "CustomFormulaMetric",
+            "name": "People Count for Solution Train",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "solutiontrain"
+            ],
+            "customMetricSettings": {
+                "formula": "AgileReleaseTrains.Sum(PeopleCount)",
+                "targetFieldName": "People Count"
+            }
+        },
+        {
+            "id": 240,
+            "version": 17805494,
+            "metricId": "CustomFormulaMetric",
+            "name": "Level Number for Product",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "product"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Product == null, 1, Product.LevelNumber +1)",
+                "targetFieldName": "Level Number"
+            }
+        },
+        {
+            "id": 241,
+            "version": 17805495,
+            "metricId": "CustomFormulaMetric",
+            "name": "Level for Product Version",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "productversion"
+            ],
+            "customMetricSettings": {
+                "formula": "\"Level \" + Math.round(LevelNumber).ToString()",
+                "targetFieldName": "Level"
+            }
+        },
+        {
+            "id": 242,
+            "version": 17805496,
+            "metricId": "CustomFormulaMetric",
+            "name": "Level for Product",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "product"
+            ],
+            "customMetricSettings": {
+                "formula": "\"Level \" + Math.round(LevelNumber).ToString()",
+                "targetFieldName": "Level"
+            }
+        },
+        {
+            "id": 243,
+            "version": 17805497,
+            "metricId": "CustomFormulaMetric",
+            "name": "Level Number for Product Version",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "productversion"
+            ],
+            "customMetricSettings": {
+                "formula": "Product.[Level Number]",
+                "targetFieldName": "Level Number"
+            }
+        },
+        {
+            "id": 244,
+            "version": 17805500,
+            "metricId": "CustomFormulaMetric",
+            "name": "Placeholder: Product for Features, US and Bugs",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "product"
+            ],
+            "customMetricSettings": {
+                "formula": "PlannedStartDate",
+                "targetFieldName": "PlannedStartDate"
+            }
+        },
+        {
+            "id": 247,
+            "version": 17805528,
+            "metricId": "CustomFormulaMetric",
+            "name": "Solution for Epics",
+            "description": null,
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "epic"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Solution == null || SolutionVersion != null && Solution.Id != SolutionVersion.Solution.Id, SolutionVersion.Solution, Solution)",
+                "targetFieldName": "Solution"
+            }
+        },
+        {
+            "id": 248,
+            "version": 17805530,
+            "metricId": "CustomFormulaMetric",
+            "name": "Placeholder: Component for some entities",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "component"
+            ],
+            "customMetricSettings": {
+                "formula": "PlannedStartDate",
+                "targetFieldName": "PlannedStartDate"
+            }
+        },
+        {
+            "id": 249,
+            "version": 17805539,
+            "metricId": "CustomFormulaMetric",
+            "name": "Set YearPeriod for MonthPeriod",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthperiod"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(QuarterPeriod != null, QuarterPeriod.YearPeriod, YearPeriod)",
+                "targetFieldName": "YearPeriod"
+            }
+        },
+        {
+            "id": 250,
+            "version": 17812461,
+            "metricId": "CustomFormulaMetric",
+            "name": "Current Value for Indicator",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "indicator"
+            ],
+            "customMetricSettings": {
+                "formula": "Measurements.Where([Value]!=null).OrderByDescending([Measurement Date]).Select([Value]).First()",
+                "targetFieldName": "Current Value"
+            }
+        },
+        {
+            "id": 251,
+            "version": 17812467,
+            "metricId": "CustomFormulaMetric",
+            "name": "Key Result Progress",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "keyresult"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Math.Max(\n    0,\n    Math.Min(\n        1,\n        IIF(\n            TargetValue = StartValue,\n            0,\n            IIF(\n                StartValue < TargetValue,\n                (CurrentValue - StartValue) / (TargetValue - StartValue),\n                (StartValue - CurrentValue) / (StartValue - TargetValue)\n))))= null,0,Math.Max(\n    0,\n    Math.Min(\n        1,\n        IIF(\n            TargetValue = StartValue,\n            0,\n            IIF(\n                StartValue < TargetValue,\n                (CurrentValue - StartValue) / (TargetValue - StartValue),\n                (StartValue - CurrentValue) / (StartValue - TargetValue)\n)))))\n\n",
+                "targetFieldName": "Progress"
+            }
+        },
+        {
+            "id": 252,
+            "version": 17812468,
+            "metricId": "CustomFormulaMetric",
+            "name": "Result Type for Key Result",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "keyresult"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Indicator != null, Indicator.[Result Type], [Result Type])",
+                "targetFieldName": "Result Type"
+            }
+        },
+        {
+            "id": 253,
+            "version": 17812469,
+            "metricId": "CustomFormulaMetric",
+            "name": "Current Value for Key Result",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "keyresult"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Measurements.Count([Value]!=null)>0, Measurements.Where([Value]!=null).OrderByDescending([Measurement Date]).Select([Value]).First(), [Start Value])",
+                "targetFieldName": "Current Value"
+            }
+        },
+        {
+            "id": 254,
+            "version": 17812470,
+            "metricId": "CustomFormulaMetric",
+            "name": "Objective Progress",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "tacticalobjective",
+                "strategicobjective",
+                "ultimateobjective"
+            ],
+            "customMetricSettings": {
+                "formula": "KeyResults.Average(Progress)",
+                "targetFieldName": "Progress"
+            }
+        },
+        {
+            "id": 255,
+            "version": 17812556,
+            "metricId": "CustomFormulaMetric",
+            "name": "TTR",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "incident"
+            ],
+            "customMetricSettings": {
+                "formula": "(EndDate-StartDate).TotalHours",
+                "targetFieldName": "TTR"
+            }
+        },
+        {
+            "id": 256,
+            "version": 17812557,
+            "metricId": "CustomFormulaMetric",
+            "name": "TTA",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "incident"
+            ],
+            "customMetricSettings": {
+                "formula": "(StartDate-CreateDate).TotalHours",
+                "targetFieldName": "TTA"
+            }
+        },
+        {
+            "id": 257,
+            "version": 17812558,
+            "metricId": "CustomFormulaMetric",
+            "name": "Downtime for Incidents",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "incident"
+            ],
+            "customMetricSettings": {
+                "formula": "(EndDate-CreateDate).TotalHours",
+                "targetFieldName": "Downtime"
+            }
+        },
+        {
+            "id": 259,
+            "version": 17812710,
+            "metricId": "CustomFormulaMetric",
+            "name": "Planned End Date for Team PI Objective",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "teampiobjective"
+            ],
+            "customMetricSettings": {
+                "formula": "Release.EndDate",
+                "targetFieldName": "PlannedEndDate"
+            }
+        },
+        {
+            "id": 260,
+            "version": 17812711,
+            "metricId": "CustomFormulaMetric",
+            "name": "Planned Start Date for ART PI Objective",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "programpiobjective"
+            ],
+            "customMetricSettings": {
+                "formula": "Release.StartDate",
+                "targetFieldName": "PlannedStartDate"
+            }
+        },
+        {
+            "id": 261,
+            "version": 17812712,
+            "metricId": "CustomFormulaMetric",
+            "name": "Planned Start Date for Team PI Objective",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "teampiobjective"
+            ],
+            "customMetricSettings": {
+                "formula": "Release.StartDate",
+                "targetFieldName": "PlannedStartDate"
+            }
+        },
+        {
+            "id": 262,
+            "version": 17812713,
+            "metricId": "CustomFormulaMetric",
+            "name": "Planned End Date for ART PI Objective",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "programpiobjective"
+            ],
+            "customMetricSettings": {
+                "formula": "Release.EndDate",
+                "targetFieldName": "PlannedEndDate"
+            }
+        },
+        {
+            "id": 263,
+            "version": 17812714,
+            "metricId": "CustomFormulaMetric",
+            "name": "ART PI Objective Progress",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "programpiobjective"
+            ],
+            "customMetricSettings": {
+                "formula": "TeamPIObjectives.Avg(Progress)",
+                "targetFieldName": "Progress"
+            }
+        },
+        {
+            "id": 264,
+            "version": 17812715,
+            "metricId": "CustomFormulaMetric",
+            "name": "Team PI Objective Progress",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "teampiobjective"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(UserStories.Count() > 0 or Features.Count() > 0 or Bugs.Count() > 0,(UserStories.Where(EntityState.isfinal = true).Count() + Features.Where(EntityState.isfinal = true).Count()+Bugs.Where(EntityState.isfinal = true).Count()) / ( UserStories.Count() + Features.Count() + Bugs.Count() ),0)",
+                "targetFieldName": "Progress"
+            }
+        },
+        {
+            "id": 265,
+            "version": 17812720,
+            "metricId": "CustomFormulaMetric",
+            "name": "Iteration Goal Progress",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "iterationgoal"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF((UserStories.Sum(Effort)+Bugs.Sum(Effort))>0,(UserStories.Sum(EffortCompleted)+Bugs.Sum(EffortCompleted))/(UserStories.Sum(Effort)+Bugs.Sum(Effort)),0)",
+                "targetFieldName": "Progress"
+            }
+        },
+        {
+            "id": 267,
+            "version": 17812754,
+            "metricId": "CustomFormulaMetric",
+            "name": "Funnel Entry Date",
+            "description": null,
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "portfolioepic"
+            ],
+            "customMetricSettings": {
+                "formula": "CreateDate",
+                "targetFieldName": "Funnel Entry Date"
+            }
+        },
+        {
+            "id": 268,
+            "version": 23921451,
+            "metricId": "CustomFormulaMetric",
+            "name": "MVX Estimate for PE",
+            "description": null,
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "portfolioepic"
+            ],
+            "customMetricSettings": {
+                "formula": "Features.where(MVP == true).Sum(InitialEstimate)+Epics.where(MVP == true).Sum(InitialEstimate)",
+                "targetFieldName": "MVX Estimate",
+                "targetCustomFieldName": "MVX Estimate"
+            }
+        },
+        {
+            "id": 270,
+            "version": 17818524,
+            "metricId": "CustomFormulaMetric",
+            "name": "Available Resources for Skills",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "skill"
+            ],
+            "customMetricSettings": {
+                "formula": "Expertises.where(Type == 'User Expertise').Count()",
+                "targetFieldName": "Available Resources"
+            }
+        },
+        {
+            "id": 271,
+            "version": 17818525,
+            "metricId": "CustomFormulaMetric",
+            "name": "Expertise Type",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expertise"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(ConnectedUser != null, \"User Expertise\",IIF(JobProfile != null, \"Job Profile Expertise\", \"Work Allocation Expertise\"))",
+                "targetFieldName": "Type"
+            }
+        },
+        {
+            "id": 272,
+            "version": 17818526,
+            "metricId": "CustomFormulaMetric",
+            "name": "Available Resources for Job Profile",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "jobprofile"
+            ],
+            "customMetricSettings": {
+                "formula": "Users.Count()",
+                "targetFieldName": "Available Resources"
+            }
+        },
+        {
+            "id": 273,
+            "version": 17818527,
+            "metricId": "CustomFormulaMetric",
+            "name": "Daily Hours for User",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "user"
+            ],
+            "customMetricSettings": {
+                "formula": "WeeklyAvailableHours/5",
+                "targetFieldName": "Daily Hours"
+            }
+        },
+        {
+            "id": 274,
+            "version": 17842258,
+            "metricId": "CustomFormulaMetric",
+            "name": "Calculate Score",
+            "description": null,
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "request",
+                "portfolioepic"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(StrategicImpact=='X-Large ($1M+)',5, IIF(StrategicImpact=='Large ($250k-$1M)',4,IIF(StrategicImpact=='Medium ($100k-$250k)',3, IIF(StrategicImpact=='Small ($25k-$100k)',2,IIF(StrategicImpact=='X-Small (<$25k)',1,0)))))* IIF(Complexity=='1 - Extremely Complex',1, IIF(Complexity=='3 - Moderately Complex',3, IIF(Complexity=='5 - Low Complexity',5,0)))* IIF(EstimatedEffort=='X-Small (<3 months)',5,IIF(EstimatedEffort=='Small (3-6 months)',4,IIF(EstimatedEffort=='Medium (6-9 months)',3,IIF(EstimatedEffort=='Large (9-12 months)',2,IIF(EstimatedEffort=='X-Large (1 year+)',1,0))))) * IIF(CustomerValue=='Major',4,IIF(CustomerValue=='Moderate',3,IIF(CustomerValue=='Limited',2,IIF(CustomerValue=='None',1,0))))* IIF(RequiredResources=='X-Large (>15)',1,IIF(RequiredResources=='Large (10-15)',2,IIF(RequiredResources=='Medium (5-10)',3,IIF(RequiredResources=='Small (1-5)',4,IIF(RequiredResources=='X-Small (<1)',5,0)))))",
+                "targetFieldName": "Score"
+            }
+        },
+        {
+            "id": 275,
+            "version": 17844800,
+            "metricId": "CustomFormulaMetric",
+            "name": "Past for Demands",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "AvailabilityDemands.Count(Availability.EntityState.IsFinal == true)>0",
+                "targetFieldName": "Past"
+            }
+        },
+        {
+            "id": 276,
+            "version": 17844801,
+            "metricId": "CustomFormulaMetric",
+            "name": "Available Capacity for Availability",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "availability"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Capacity]-[Reserved Capacity]",
+                "targetFieldName": "Available Capacity"
+            }
+        },
+        {
+            "id": 277,
+            "version": 17844802,
+            "metricId": "CustomFormulaMetric",
+            "name": "Over Capacity Demands for Availability",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "availability"
+            ],
+            "customMetricSettings": {
+                "formula": "Demands.where([Over Capacity] == true).Count()",
+                "targetFieldName": "Over Capacity Demands"
+            }
+        },
+        {
+            "id": 278,
+            "version": 17844803,
+            "metricId": "CustomFormulaMetric",
+            "name": "Over Capacity for Demand",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF([Reserved Hours]>[Total Hours], true, false)",
+                "targetFieldName": "Over Capacity"
+            }
+        },
+        {
+            "id": 279,
+            "version": 17844804,
+            "metricId": "CustomFormulaMetric",
+            "name": "Overloaded for Work Allocation",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "workallocation"
+            ],
+            "customMetricSettings": {
+                "formula": "Demands.Count(Past==false and Overloaded == true)>0",
+                "targetFieldName": "Overloaded"
+            }
+        },
+        {
+            "id": 280,
+            "version": 17844805,
+            "metricId": "CustomFormulaMetric",
+            "name": "Overloaded for Demand",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(WorkAllocation == null, false, IIF([Over Capacity] == true or AvailabilityDemands.Count(Availability.Overloaded == true)>0, true, false))",
+                "targetFieldName": "Overloaded"
+            }
+        },
+        {
+            "id": 281,
+            "version": 17844806,
+            "metricId": "CustomFormulaMetric",
+            "name": "Overloaded for Availability",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "availability"
+            ],
+            "customMetricSettings": {
+                "formula": "(([Total Hours] * 1)-[Reserved Hours]) < 0",
+                "targetFieldName": "Overloaded"
+            }
+        },
+        {
+            "id": 282,
+            "version": 17844815,
+            "metricId": "CustomFormulaMetric",
+            "name": "Level CF for PH",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "publicholiday"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(PublicHoliday==null, 'Common', 'User')",
+                "targetFieldName": "Level"
+            }
+        },
+        {
+            "id": 283,
+            "version": 17844817,
+            "metricId": "CustomFormulaMetric",
+            "name": "Reserved Hours for Vacation, Public Holiday, Overtime and Sick Leave",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "sickleave",
+                "overtime",
+                "vacation",
+                "publicholiday"
+            ],
+            "customMetricSettings": {
+                "formula": "[Requested Hours]",
+                "targetFieldName": "Reserved Hours"
+            }
+        },
+        {
+            "id": 284,
+            "version": 17844818,
+            "metricId": "CustomFormulaMetric",
+            "name": "Reserved Capacity for Public Holiday",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "publicholiday"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Level == 'Common', null, [Reserved Hours]/[Total Hours]*100)",
+                "targetFieldName": "Reserved Capacity"
+            }
+        },
+        {
+            "id": 285,
+            "version": 17844819,
+            "metricId": "CustomFormulaMetric",
+            "name": "Requested Hours for Vacation and Sick Leave",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "vacation",
+                "sickleave"
+            ],
+            "customMetricSettings": {
+                "formula": "[Working Days]*(ConnectedUser.[Daily Hours])*[Partial Leave]",
+                "targetFieldName": "Requested Hours"
+            }
+        },
+        {
+            "id": 286,
+            "version": 17844820,
+            "metricId": "CustomFormulaMetric",
+            "name": "Reserved Capacity for Vacation and Sick Leave",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "sickleave",
+                "vacation"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF([Total Hours]=0, 0, [Reserved Hours]/[Total Hours]*100)",
+                "targetFieldName": "Reserved Capacity"
+            }
+        },
+        {
+            "id": 287,
+            "version": 17844821,
+            "metricId": "CustomFormulaMetric",
+            "name": "Requested Hours for Public Holiday",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "publicholiday"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(ConnectedUser==null, null, [Working Days]*ConnectedUser.[Daily Hours])",
+                "targetFieldName": "Requested Hours"
+            }
+        },
+        {
+            "id": 288,
+            "version": 17844824,
+            "metricId": "CustomFormulaMetric",
+            "name": "Total Active Involvement",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "user"
+            ],
+            "customMetricSettings": {
+                "formula": "Involvements.Where(Active==true).Sum(Percentage)",
+                "targetFieldName": "Total Active Involvement"
+            }
+        },
+        {
+            "id": 289,
+            "version": 17844926,
+            "metricId": "CustomFormulaMetric",
+            "name": "Reserved Capacity for Availability",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "availability"
+            ],
+            "customMetricSettings": {
+                "formula": "AvailabilityDemands.Sum(Demand.[Reserved Hours])/[Total Hours]*100",
+                "targetFieldName": "Reserved Capacity"
+            }
+        },
+        {
+            "id": 290,
+            "version": 17844927,
+            "metricId": "CustomFormulaMetric",
+            "name": "Reserved Hours for Work Allocation",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "workallocation"
+            ],
+            "customMetricSettings": {
+                "formula": "math.round([Reserved Capacity] * [Total Hours] / 100)",
+                "targetFieldName": "Reserved Hours"
+            }
+        },
+        {
+            "id": 291,
+            "version": 17844928,
+            "metricId": "CustomFormulaMetric",
+            "name": "Available Hours for Availability",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "availability"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Hours]-[Reserved Hours]",
+                "targetFieldName": "Available Hours"
+            }
+        },
+        {
+            "id": 292,
+            "version": 17844929,
+            "metricId": "CustomFormulaMetric",
+            "name": "Reserved Hours for Availability",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "availability"
+            ],
+            "customMetricSettings": {
+                "formula": "AvailabilityDemands.Where(Demand.WorkAllocation == null OR (Demand.WorkAllocation.Status != 'Rejected')).Sum(Demand.[Reserved Hours]) + 0",
+                "targetFieldName": "Reserved Hours"
+            }
+        },
+        {
+            "id": 293,
+            "version": 17855592,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run (Percentage) for Cost",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "cost"
+            ],
+            "customMetricSettings": {
+                "formula": "[Run Actuals]/Actuals*100",
+                "targetFieldName": "Run (Percentage)"
+            }
+        },
+        {
+            "id": 294,
+            "version": 17855593,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx (Percentage) for Cost",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "cost"
+            ],
+            "customMetricSettings": {
+                "formula": "[CapEx Actuals]/Actuals*100",
+                "targetFieldName": "CapEx (Percentage)"
+            }
+        },
+        {
+            "id": 295,
+            "version": 17855594,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Actuals for Costs",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "cost"
+            ],
+            "customMetricSettings": {
+                "formula": "[Actuals]-[Run Actuals]",
+                "targetFieldName": "Grow Actuals"
+            }
+        },
+        {
+            "id": 296,
+            "version": 17855595,
+            "metricId": "CustomFormulaMetric",
+            "name": "Actuals for Cost",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "cost"
+            ],
+            "customMetricSettings": {
+                "formula": "[CapEx Actuals]+[OpEx Actuals]\n",
+                "targetFieldName": "Actuals"
+            }
+        },
+        {
+            "id": 297,
+            "version": 17855623,
+            "metricId": "CustomFormulaMetric",
+            "name": "Portfolio Budget Type for Budgets",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget",
+                "quarterlybudget",
+                "monthlybudget",
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Id>0, \"Work\", \"Work\")",
+                "targetFieldName": "Portfolio Budget Type"
+            }
+        },
+        {
+            "id": 298,
+            "version": 17856470,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Proposed for WorkAllocation",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "workallocation"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*(100-[CapEx (Percentage)])/100",
+                "targetFieldName": "OpEx Proposed"
+            }
+        },
+        {
+            "id": 299,
+            "version": 17856471,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Proposed for WorkAllocation",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "workallocation"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*(100 - [Run (Percentage)])/100",
+                "targetFieldName": "Grow Proposed"
+            }
+        },
+        {
+            "id": 300,
+            "version": 17856472,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Proposed for Demand",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*(100-WorkAllocation.[Run (Percentage)])/100",
+                "targetFieldName": "Grow Proposed"
+            }
+        },
+        {
+            "id": 301,
+            "version": 17856473,
+            "metricId": "CustomFormulaMetric",
+            "name": "Opex Proposed for Demand",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*(100-WorkAllocation.[CapEx (Percentage)])/100",
+                "targetFieldName": "OpEx Proposed"
+            }
+        },
+        {
+            "id": 302,
+            "version": 17856474,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Proposed for Demand",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*WorkAllocation.[Run (Percentage)]/100",
+                "targetFieldName": "Run Proposed"
+            }
+        },
+        {
+            "id": 303,
+            "version": 17856475,
+            "metricId": "CustomFormulaMetric",
+            "name": "Capex Proposed for Demand",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*WorkAllocation.[CapEx (Percentage)]/100",
+                "targetFieldName": "CapEx Proposed"
+            }
+        },
+        {
+            "id": 304,
+            "version": 17856476,
+            "metricId": "CustomFormulaMetric",
+            "name": "In Scope for Demands",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.where(Type == 'Work').Select(QuarterlyBudget.AnnualBudget.[In Scope]).First()",
+                "targetFieldName": "In Scope"
+            }
+        },
+        {
+            "id": 305,
+            "version": 17856477,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Proposed for WorkAllocation",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "workallocation"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*[CapEx (Percentage)]/100",
+                "targetFieldName": "CapEx Proposed"
+            }
+        },
+        {
+            "id": 306,
+            "version": 17856478,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Proposed for WorkAllocation",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "workallocation"
+            ],
+            "customMetricSettings": {
+                "formula": "[Total Allocated Cost]*[Run (Percentage)]/100",
+                "targetFieldName": "Run Proposed"
+            }
+        },
+        {
+            "id": 307,
+            "version": 17856479,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Proposed for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(MonthlyBudgets.Count == 0, 0, MonthlyBudgets.Sum([OpEx Proposed])) + \nIIF(Demands.Count == 0, 0, Demands.Sum([OpEx Proposed])) + \nIIF(Expenses.Count == 0, 0, Expenses.Sum([OpEx Proposed]))",
+                "targetFieldName": "OpEx Proposed"
+            }
+        },
+        {
+            "id": 308,
+            "version": 17856531,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Proposed for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(MonthlyBudgets.Count == 0, 0, MonthlyBudgets.Sum([CapEx Proposed])) + \nIIF(Demands.Count == 0, 0, Demands.Sum([CapEx Proposed])) + \nIIF(Expenses.Count == 0, 0, Expenses.Sum([CapEx Proposed]))",
+                "targetFieldName": "CapEx Proposed"
+            }
+        },
+        {
+            "id": 309,
+            "version": 17856592,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Proposed for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(MonthlyBudgets.Count == 0, 0, MonthlyBudgets.Sum([Run Proposed])) + \nIIF(Demands.Count == 0, 0, Demands.Sum([Run Proposed])) + \nIIF(Expenses.Count == 0, 0, Expenses.Sum([Run Proposed]))",
+                "targetFieldName": "Run Proposed"
+            }
+        },
+        {
+            "id": 310,
+            "version": 17856653,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Proposed for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(MonthlyBudgets.Count == 0, 0, MonthlyBudgets.Sum([Grow Proposed])) + \nIIF(Demands.Count == 0, 0, Demands.Sum([Grow Proposed])) + \nIIF(Expenses.Count == 0, 0, Expenses.Sum([Grow Proposed]))",
+                "targetFieldName": "Grow Proposed"
+            }
+        },
+        {
+            "id": 311,
+            "version": 17856716,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget in Scope for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IFNONE(IIF(Type == 'Work', MonthlyBudgets.where(AnnualBudget.[In Scope]==true).Sum([Proposed Labor Budget]), MonthlyBudgets.Sum([Proposed Labor Budget In Scope])), 0)+\nIFNONE(IIF(Type == 'Work', Demands.Sum([Total Allocated Cost]), Demands.where([In Scope]==true).Sum([Total Allocated Cost])),0)",
+                "targetFieldName": "Proposed Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 312,
+            "version": 17856767,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(MonthlyBudgets.Count() == 0, 0, MonthlyBudgets.Sum([Proposed Labor Budget])) +\nIIF(Demands.Count() == 0,0,Demands.Sum([Total Allocated Cost]))",
+                "targetFieldName": "Proposed Labor Budget"
+            }
+        },
+        {
+            "id": 313,
+            "version": 17857276,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Non Labor Delta for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "[Approved Non Labor Budget]-AnnualBudgets.Sum([Approved Non Labor Budget])",
+                "targetFieldName": "Approved Non Labor Delta"
+            }
+        },
+        {
+            "id": 314,
+            "version": 17857278,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Actuals for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([OpEx Actuals])",
+                "targetFieldName": "OpEx Actuals"
+            }
+        },
+        {
+            "id": 315,
+            "version": 17857290,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget In Scope for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Proposed Labor Budget In Scope])\n",
+                "targetFieldName": "Proposed Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 316,
+            "version": 17857312,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Non Labor Delta for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "[Approved Non Labor Budget]-Budgets.Sum([Approved Non Labor Budget])",
+                "targetFieldName": "Approved Non Labor Delta"
+            }
+        },
+        {
+            "id": 317,
+            "version": 17857313,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Labor Delta for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "[Approved Labor Budget]-Budgets.Sum([Approved Labor Budget])",
+                "targetFieldName": "Approved Labor Delta"
+            }
+        },
+        {
+            "id": 318,
+            "version": 17857314,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Delta for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "([Approved Labor Budget]+[Approved Non Labor Budget])-Budgets.Sum([Approved Labor Budget]+[Approved Non Labor Budget])",
+                "targetFieldName": "Approved Delta"
+            }
+        },
+        {
+            "id": 319,
+            "version": 17857315,
+            "metricId": "CustomFormulaMetric",
+            "name": "Target Run for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "[Target Budget]*[Target Run (Percentage)]/100",
+                "targetFieldName": "Target Run"
+            }
+        },
+        {
+            "id": 320,
+            "version": 17857317,
+            "metricId": "CustomFormulaMetric",
+            "name": "Target CapEx for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "[Target Budget]*[Target CapEx (Percentage)]/100",
+                "targetFieldName": "Target CapEx"
+            }
+        },
+        {
+            "id": 321,
+            "version": 17857328,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Actuals for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Actuals*[Run (Percentage)]/100",
+                "targetFieldName": "Run Actuals"
+            }
+        },
+        {
+            "id": 322,
+            "version": 17857339,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget In Scope for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Proposed Labor Budget In Scope])\n",
+                "targetFieldName": "Proposed Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 323,
+            "version": 17857370,
+            "metricId": "CustomFormulaMetric",
+            "name": "In Scope checkbox for Monthly Budget and Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget",
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudget.[In Scope]",
+                "targetFieldName": "In Scope"
+            }
+        },
+        {
+            "id": 324,
+            "version": 17857383,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Proposed for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([CapEx Proposed])",
+                "targetFieldName": "CapEx Proposed"
+            }
+        },
+        {
+            "id": 325,
+            "version": 17857394,
+            "metricId": "CustomFormulaMetric",
+            "name": "Labor Actuals for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Labor Actuals])",
+                "targetFieldName": "Labor Actuals"
+            }
+        },
+        {
+            "id": 326,
+            "version": 17857405,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Actuals for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Grow Actuals])",
+                "targetFieldName": "Grow Actuals"
+            }
+        },
+        {
+            "id": 327,
+            "version": 17857416,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Proposed Labor Budget])",
+                "targetFieldName": "Proposed Labor Budget"
+            }
+        },
+        {
+            "id": 328,
+            "version": 17857417,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Actuals for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Grow Actuals])",
+                "targetFieldName": "Grow Actuals"
+            }
+        },
+        {
+            "id": 329,
+            "version": 17857439,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Actuals for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Grow Actuals])",
+                "targetFieldName": "Grow Actuals"
+            }
+        },
+        {
+            "id": 330,
+            "version": 17857479,
+            "metricId": "CustomFormulaMetric",
+            "name": "Target CapEx for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Target CapEx])",
+                "targetFieldName": "Target CapEx"
+            }
+        },
+        {
+            "id": 331,
+            "version": 17857497,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run In Scope for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Where([In Scope] == true).Sum([Target Run])",
+                "targetFieldName": "Run In Scope"
+            }
+        },
+        {
+            "id": 332,
+            "version": 17857508,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx In Scope for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Where([In Scope] == true).Sum([Target Budget]-[Target CapEx])",
+                "targetFieldName": "OpEx In Scope"
+            }
+        },
+        {
+            "id": 333,
+            "version": 17857519,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx In Scope for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Where([In Scope]== true).Sum([Target CapEx])",
+                "targetFieldName": "CapEx In Scope"
+            }
+        },
+        {
+            "id": 334,
+            "version": 17857530,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Actuals for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([CapEx Actuals])",
+                "targetFieldName": "CapEx Actuals"
+            }
+        },
+        {
+            "id": 335,
+            "version": 17857567,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Actuals for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([CapEx Actuals])",
+                "targetFieldName": "CapEx Actuals"
+            }
+        },
+        {
+            "id": 336,
+            "version": 17857584,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Actuals for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([CapEx Actuals])",
+                "targetFieldName": "CapEx Actuals"
+            }
+        },
+        {
+            "id": 337,
+            "version": 17857586,
+            "metricId": "CustomFormulaMetric",
+            "name": "Non Labor Actuals for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Non Labor Actuals])",
+                "targetFieldName": "Non Labor Actuals"
+            }
+        },
+        {
+            "id": 338,
+            "version": 17857616,
+            "metricId": "CustomFormulaMetric",
+            "name": "Non Labor Actuals for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Non Labor Actuals])",
+                "targetFieldName": "Non Labor Actuals"
+            }
+        },
+        {
+            "id": 339,
+            "version": 17857648,
+            "metricId": "CustomFormulaMetric",
+            "name": "Non Labor Actuals for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Non Labor Actuals])",
+                "targetFieldName": "Non Labor Actuals"
+            }
+        },
+        {
+            "id": 340,
+            "version": 17857657,
+            "metricId": "CustomFormulaMetric",
+            "name": "Labor Actuals for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Labor Actuals])",
+                "targetFieldName": "Labor Actuals"
+            }
+        },
+        {
+            "id": 341,
+            "version": 17857700,
+            "metricId": "CustomFormulaMetric",
+            "name": "Labor Actuals for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Labor Actuals])",
+                "targetFieldName": "Labor Actuals"
+            }
+        },
+        {
+            "id": 342,
+            "version": 17857716,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Actuals for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([OpEx Actuals])",
+                "targetFieldName": "OpEx Actuals"
+            }
+        },
+        {
+            "id": 343,
+            "version": 17857754,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Actuals for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Actuals*(100- [Run (Percentage)])/100",
+                "targetFieldName": "Grow Actuals"
+            }
+        },
+        {
+            "id": 344,
+            "version": 17857760,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Actuals for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Actuals*(100-[CapEx (Percentage)])/100",
+                "targetFieldName": "OpEx Actuals"
+            }
+        },
+        {
+            "id": 345,
+            "version": 17857763,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Proposed for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Proposed*(100 - [Run (Percentage)])/100",
+                "targetFieldName": "Grow Proposed"
+            }
+        },
+        {
+            "id": 346,
+            "version": 17857766,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Proposed for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Proposed*(100-[CapEx (Percentage)])/100",
+                "targetFieldName": "OpEx Proposed"
+            }
+        },
+        {
+            "id": 347,
+            "version": 17857767,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Delta for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "[Approved Labor Budget]+[Approved Non Labor Budget]-AnnualBudgets.Sum([Approved Labor Budget]+[Approved Non Labor Budget])",
+                "targetFieldName": "Approved Delta"
+            }
+        },
+        {
+            "id": 348,
+            "version": 17857778,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Actuals for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([OpEx Actuals])",
+                "targetFieldName": "OpEx Actuals"
+            }
+        },
+        {
+            "id": 349,
+            "version": 17857789,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Labor Delta for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "[Approved Labor Budget]-AnnualBudgets.Sum([Approved Labor Budget])",
+                "targetFieldName": "Approved Labor Delta"
+            }
+        },
+        {
+            "id": 350,
+            "version": 17857801,
+            "metricId": "CustomFormulaMetric",
+            "name": "Target Run for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Target Run])",
+                "targetFieldName": "Target Run"
+            }
+        },
+        {
+            "id": 351,
+            "version": 17857812,
+            "metricId": "CustomFormulaMetric",
+            "name": "Target Budget In Scope for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Target Budget In Scope])",
+                "targetFieldName": "Target Budget In Scope"
+            }
+        },
+        {
+            "id": 352,
+            "version": 17857813,
+            "metricId": "CustomFormulaMetric",
+            "name": "Target Budget for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Target Budget])",
+                "targetFieldName": "Target Budget"
+            }
+        },
+        {
+            "id": 353,
+            "version": 17857827,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget In Scope for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Proposed Non Labor Budget In Scope])\n",
+                "targetFieldName": "Proposed Non Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 354,
+            "version": 17857845,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget In Scope for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Proposed Non Labor Budget In Scope])",
+                "targetFieldName": "Proposed Non Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 355,
+            "version": 17857846,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget In Scope for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Proposed Non Labor Budget In Scope])",
+                "targetFieldName": "Proposed Non Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 356,
+            "version": 17857883,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow In Scope for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Where([In Scope] == true).Sum([Target Budget]-[Target Run])",
+                "targetFieldName": "Grow In Scope"
+            }
+        },
+        {
+            "id": 357,
+            "version": 17857911,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Actuals for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Run Actuals])",
+                "targetFieldName": "Run Actuals"
+            }
+        },
+        {
+            "id": 358,
+            "version": 17857922,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Actuals for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Run Actuals])",
+                "targetFieldName": "Run Actuals"
+            }
+        },
+        {
+            "id": 359,
+            "version": 17857923,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Actuals for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Run Actuals])",
+                "targetFieldName": "Run Actuals"
+            }
+        },
+        {
+            "id": 360,
+            "version": 17857962,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Proposed for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([CapEx Proposed])",
+                "targetFieldName": "CapEx Proposed"
+            }
+        },
+        {
+            "id": 361,
+            "version": 17857971,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Proposed for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([CapEx Proposed])",
+                "targetFieldName": "CapEx Proposed"
+            }
+        },
+        {
+            "id": 362,
+            "version": 17858009,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Proposed for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([OpEx Proposed])",
+                "targetFieldName": "OpEx Proposed"
+            }
+        },
+        {
+            "id": 363,
+            "version": 17858040,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Proposed for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([OpEx Proposed])",
+                "targetFieldName": "OpEx Proposed"
+            }
+        },
+        {
+            "id": 364,
+            "version": 17858053,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Proposed Labor Budget])",
+                "targetFieldName": "Proposed Labor Budget"
+            }
+        },
+        {
+            "id": 365,
+            "version": 17858082,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Proposed Non Labor Budget])",
+                "targetFieldName": "Proposed Non Labor Budget"
+            }
+        },
+        {
+            "id": 366,
+            "version": 17858109,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Proposed Non Labor Budget])",
+                "targetFieldName": "Proposed Non Labor Budget"
+            }
+        },
+        {
+            "id": 367,
+            "version": 17858120,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Proposed Non Labor Budget])",
+                "targetFieldName": "Proposed Non Labor Budget"
+            }
+        },
+        {
+            "id": 368,
+            "version": 17858154,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Actuals for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Actuals*[CapEx (Percentage)]/100",
+                "targetFieldName": "CapEx Actuals"
+            }
+        },
+        {
+            "id": 369,
+            "version": 17858165,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Proposed for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Proposed*[Run (Percentage)]/100",
+                "targetFieldName": "Run Proposed"
+            }
+        },
+        {
+            "id": 370,
+            "version": 17858166,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Proposed for Expense",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "Proposed*[CapEx (Percentage)]/100",
+                "targetFieldName": "CapEx Proposed"
+            }
+        },
+        {
+            "id": 371,
+            "version": 17858167,
+            "metricId": "CustomFormulaMetric",
+            "name": "Target Budget In Scope for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(AnnualBudgets.Count != 0, IIF( Type == 'Work', AnnualBudgets.where([In Scope]==true).Sum([Target Budget]), AnnualBudgets.Sum([Target Budget])), [Target Budget In Scope])\n",
+                "targetFieldName": "Target Budget In Scope"
+            }
+        },
+        {
+            "id": 372,
+            "version": 17858169,
+            "metricId": "CustomFormulaMetric",
+            "name": "In Scope for Expenses",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "expense"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.where(Type == 'Work').Select(QuarterlyBudget.AnnualBudget.[In Scope]).First()\n",
+                "targetFieldName": "In Scope"
+            }
+        },
+        {
+            "id": 373,
+            "version": 17858170,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Non Labor Budget for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Approved Non Labor Budget])",
+                "targetFieldName": "Approved Non Labor Budget"
+            }
+        },
+        {
+            "id": 374,
+            "version": 17858173,
+            "metricId": "CustomFormulaMetric",
+            "name": "Approved Labor Budget for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Approved Labor Budget])",
+                "targetFieldName": "Approved Labor Budget"
+            }
+        },
+        {
+            "id": 375,
+            "version": 17858223,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Proposed for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Grow Proposed])",
+                "targetFieldName": "Grow Proposed"
+            }
+        },
+        {
+            "id": 376,
+            "version": 17858262,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Proposed for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Grow Proposed])",
+                "targetFieldName": "Grow Proposed"
+            }
+        },
+        {
+            "id": 377,
+            "version": 17858273,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Proposed for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Grow Proposed])",
+                "targetFieldName": "Grow Proposed"
+            }
+        },
+        {
+            "id": 378,
+            "version": 17858284,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Proposed for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([Run Proposed])",
+                "targetFieldName": "Run Proposed"
+            }
+        },
+        {
+            "id": 379,
+            "version": 17858328,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Proposed for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Run Proposed])",
+                "targetFieldName": "Run Proposed"
+            }
+        },
+        {
+            "id": 380,
+            "version": 17858341,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Proposed for Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "budget"
+            ],
+            "customMetricSettings": {
+                "formula": "AnnualBudgets.Sum([Run Proposed])",
+                "targetFieldName": "Run Proposed"
+            }
+        },
+        {
+            "id": 381,
+            "version": 17858352,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Proposed for Quarterly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "quarterlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Sum([OpEx Proposed])",
+                "targetFieldName": "OpEx Proposed"
+            }
+        },
+        {
+            "id": 382,
+            "version": 18116665,
+            "metricId": "CustomFormulaMetric",
+            "name": "Non Labor Actuals for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF (Product==null,\nIIF(Expenses.Count() == 0, 0, Expenses.Sum(Actuals)) + \nIIF(MonthlyBudgets.Count() == 0, 0,MonthlyBudgets.Sum([Non Labor Actuals])),Demands.Sum([Aggregated Non Labor Actuals]))",
+                "targetFieldName": "Non Labor Actuals"
+            }
+        },
+        {
+            "id": 383,
+            "version": 18106046,
+            "metricId": "CustomFormulaMetric",
+            "name": "Labor Actuals for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF (Product==null,\nIIF(Costs.Count() == 0, 0, Costs.Sum(Actuals)) +\nIIF(MonthlyBudgets.Count() == 0, 0, MonthlyBudgets.Sum([Labor Actuals])),Demands.Sum([Aggregated Labor Actual]))\n\n",
+                "targetFieldName": "Labor Actuals"
+            }
+        },
+        {
+            "id": 384,
+            "version": 18116327,
+            "metricId": "CustomFormulaMetric",
+            "name": "CapEx Actuals for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Product==null,\n\nIIF(Costs.Count() == 0, 0, Costs.Sum([CapEx Actuals])) + \nIIF(Expenses.Count() == 0, 0, Expenses.Sum([CapEx Actuals])) +\nIIF(MonthlyBudgets.Count() == 0, 0, MonthlyBudgets.Sum([CapEx Actuals])),Demands.Sum([Aggregated Capex Actuals]))",
+                "targetFieldName": "CapEx Actuals"
+            }
+        },
+        {
+            "id": 385,
+            "version": 18116413,
+            "metricId": "CustomFormulaMetric",
+            "name": "OpEx Actuals for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF (Product==null,\n\nIIF(Costs.Count() == 0, 0, Costs.Sum([OpEx Actuals])) + \nIIF(Expenses.Count() == 0, 0, Expenses.Sum([OpEx Actuals])) +\nIIF(MonthlyBudgets.Count() == 0, 0, MonthlyBudgets.Sum([OpEx Actuals])),Demands.Sum([Aggregated Opex Actuals]))",
+                "targetFieldName": "OpEx Actuals"
+            }
+        },
+        {
+            "id": 386,
+            "version": 18116537,
+            "metricId": "CustomFormulaMetric",
+            "name": "Run Actuals for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(Product==null,\n\nIIF(Costs.Count() == 0, 0, Costs.Sum([Run Actuals])) + \nIIF(Expenses.Count() == 0, 0, Expenses.Sum([Run Actuals])) +\nIIF(MonthlyBudgets.Count() == 0, 0, MonthlyBudgets.Sum([Run Actuals])),Demands.Sum([Aggregated Run Actuals]))",
+                "targetFieldName": "Run Actuals"
+            }
+        },
+        {
+            "id": 387,
+            "version": 18116582,
+            "metricId": "CustomFormulaMetric",
+            "name": "Grow Actuals for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF (Product==null,\nIIF(Costs.Count() == 0, 0, Costs.Sum([Grow Actuals])) + \nIIF(Expenses.Count() == 0, 0, Expenses.Sum([Grow Actuals])) +\nIIF(MonthlyBudgets.Count() == 0, 0, MonthlyBudgets.Sum([Grow Actuals])),Demands.Sum([Aggregated Grow Actuals]))",
+                "targetFieldName": "Grow Actuals"
+            }
+        },
+        {
+            "id": 388,
+            "version": 17858782,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF(MonthlyBudgets.Count == 0, 0, MonthlyBudgets.Sum([Proposed Non Labor Budget])) + \nIIF(Expenses.Count()==0,0, Expenses.Sum(Proposed))",
+                "targetFieldName": "Proposed Non Labor Budget"
+            }
+        },
+        {
+            "id": 389,
+            "version": 17858855,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Non Labor Budget In Scope for Monthly Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "IFNONE(IIF(Type == 'Work', MonthlyBudgets.where(QuarterlyBudget.AnnualBudget.[In Scope] == true).Sum([Proposed Non Labor Budget In Scope]), MonthlyBudgets.Sum([Proposed Non Labor Budget In Scope])),0) +\nIFNONE(IIF(Type == 'Work', Expenses.where([In Scope] == true).Sum([Proposed]), Expenses.Sum([Proposed])),0)",
+                "targetFieldName": "Proposed Non Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 390,
+            "version": 17858904,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Proposed Labor Budget])",
+                "targetFieldName": "Proposed Labor Budget"
+            }
+        },
+        {
+            "id": 391,
+            "version": 17858955,
+            "metricId": "CustomFormulaMetric",
+            "name": "Proposed Labor Budget In Scope for Annual Budget",
+            "description": null,
+            "specificProcessIds": [],
+            "entityTypes": [
+                "annualbudget"
+            ],
+            "customMetricSettings": {
+                "formula": "QuarterlyBudgets.Sum([Proposed Labor Budget In Scope])",
+                "targetFieldName": "Proposed Labor Budget In Scope"
+            }
+        },
+        {
+            "id": 392,
+            "version": 18018878,
+            "metricId": "CustomFormulaMetric",
+            "name": "Feature Prioritization - WSJF",
+            "description": null,
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "feature"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF((Convert.ToInt32(CustomValues['User, Business Value']) + Convert.ToInt32(CustomValues['Time Criticality']) + Convert.ToInt32(CustomValues['RR, OE Value'])) > 0 and Convert.ToInt32(CustomValues['Job Size']) > 0,(Convert.ToInt32(CustomValues['User, Business Value']) + Convert.ToInt32(CustomValues['Time Criticality']) + Convert.ToInt32(CustomValues['RR, OE Value'])) / Convert.ToInt32(CustomValues['Job Size']),SafeConvert.ToDouble(null))",
+                "targetFieldName": "WSJF"
+            }
+        },
+        {
+            "id": 393,
+            "version": 17901548,
+            "metricId": "CustomFormulaMetric",
+            "name": "PI Capacity",
+            "description": null,
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "release"
+            ],
+            "customMetricSettings": {
+                "formula": "TeamIterations.Sum(Capacity)",
+                "targetFieldName": "Capacity"
+            }
+        },
+        {
+            "id": 394,
+            "version": 17901572,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy EffortCompleted to Velocity for PI (Release)",
+            "description": null,
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "release"
+            ],
+            "customMetricSettings": {
+                "formula": "EffortCompleted",
+                "targetFieldName": "Velocity"
+            }
+        },
+        {
+            "id": 395,
+            "version": 18018879,
+            "metricId": "CustomFormulaMetric",
+            "name": "Epic Prioritization - WSJF",
+            "description": "",
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "epic"
+            ],
+            "customMetricSettings": {
+                "formula": "IIF((Convert.ToInt32(CustomValues['User, Business Value']) + Convert.ToInt32(CustomValues['Time Criticality']) + Convert.ToInt32(CustomValues['RR, OE Value'])) > 0 and Convert.ToInt32(CustomValues['Job Size']) > 0,(Convert.ToInt32(CustomValues['User, Business Value']) + Convert.ToInt32(CustomValues['Time Criticality']) + Convert.ToInt32(CustomValues['RR, OE Value'])) / Convert.ToInt32(CustomValues['Job Size']),SafeConvert.ToDouble(null))",
+                "targetFieldName": "WSJF",
+                "targetCustomFieldName": "WSJF"
+            }
+        },
+        {
+            "id": 396,
+            "version": 18106638,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy total Labor Actual to Demand level",
+            "description": "",
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Where(PortfolioEpic!=null).Sum([Labor Actuals]/[Connected Demands])",
+                "targetFieldName": "Aggregated Labor Actual",
+                "targetCustomFieldName": "Aggregated Labor Actual"
+            }
+        },
+        {
+            "id": 397,
+            "version": 18106637,
+            "metricId": "CustomFormulaMetric",
+            "name": "Count the number of connected demands for MonthlyBudget",
+            "description": "",
+            "specificProcessIds": [],
+            "entityTypes": [
+                "monthlybudget"
+            ],
+            "customMetricSettings": {
+                "formula": "Demands.Count()",
+                "targetFieldName": "Connected Demands",
+                "targetCustomFieldName": "Connected Demands"
+            }
+        },
+        {
+            "id": 398,
+            "version": 18116373,
+            "metricId": "CustomFormulaMetric",
+            "name": " Copy total Capex  Actual to Demand level",
+            "description": "",
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Where(PortfolioEpic!=null).Sum([CapEx Actuals]/[Connected Demands])",
+                "targetFieldName": "Aggregated Capex Actuals",
+                "targetCustomFieldName": "Aggregated Capex Actuals"
+            }
+        },
+        {
+            "id": 399,
+            "version": 18116411,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy total Opex Actual to Demand level",
+            "description": "",
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Where(PortfolioEpic!=null).Sum([OpEx Actuals]/[Connected Demands])",
+                "targetFieldName": "Aggregated Opex Actuals",
+                "targetCustomFieldName": "Aggregated Opex Actuals"
+            }
+        },
+        {
+            "id": 400,
+            "version": 18116535,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy total Run Actual to Demand level",
+            "description": "",
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Where(PortfolioEpic!=null).Sum([Run Actuals]/[Connected Demands])",
+                "targetFieldName": "Aggregated Run Actuals",
+                "targetCustomFieldName": "Aggregated Run Actuals"
+            }
+        },
+        {
+            "id": 401,
+            "version": 18116536,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy total Grow Actual to Demand level",
+            "description": "",
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Where(PortfolioEpic!=null).Sum([Grow Actuals]/[Connected Demands])",
+                "targetFieldName": "Aggregated Grow Actuals",
+                "targetCustomFieldName": "Aggregated Grow Actuals"
+            }
+        },
+        {
+            "id": 402,
+            "version": 18116627,
+            "metricId": "CustomFormulaMetric",
+            "name": "Custom formula",
+            "description": "",
+            "specificProcessIds": [],
+            "entityTypes": [
+                "demand"
+            ],
+            "customMetricSettings": {
+                "formula": "MonthlyBudgets.Where(PortfolioEpic!=null).Sum([Non Labor Actuals]/[Connected Demands])",
+                "targetFieldName": "Aggregated Non Labor Actuals",
+                "targetCustomFieldName": "Aggregated Non Labor Actuals"
+            }
+        },
+        {
+            "id": 403,
+            "version": 24027433,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy Portfolio Director from parent Portfolio",
+            "description": "",
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "portfolioepic"
+            ],
+            "customMetricSettings": {
+                "formula": "Project.CustomValues.Text('Portfolio Director')",
+                "targetFieldName": "Portfolio Director",
+                "targetCustomFieldName": "Portfolio Director"
+            }
+        },
+        {
+            "id": 404,
+            "version": 24027475,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy Division Director from parent Portfolio",
+            "description": "",
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "portfolioepic"
+            ],
+            "customMetricSettings": {
+                "formula": "Project.CustomValues.Text('Division Director')",
+                "targetFieldName": "Division Director",
+                "targetCustomFieldName": "Division Director"
+            }
+        },
+        {
+            "id": 405,
+            "version": 24027477,
+            "metricId": "CustomFormulaMetric",
+            "name": "Copy Finance Manager from parent Portfolio",
+            "description": "",
+            "specificProcessIds": [
+                1
+            ],
+            "entityTypes": [
+                "portfolioepic"
+            ],
+            "customMetricSettings": {
+                "formula": "Project.CustomValues.Text('Finance Manager')",
+                "targetFieldName": "Finance Manager",
+                "targetCustomFieldName": "Finance Manager"
+            }
+        }
+    ]
+}

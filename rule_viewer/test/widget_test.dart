@@ -1,30 +1,67 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rule_viewer/main.dart';
+import 'package:rule_viewer/models/rules_model.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('rule ordering helpers', () {
+    final model = AutomationRuleList(items: [
+      AutomationRule(
+        id: '1',
+        name: '',
+        description: 'First rule',
+        ownerService: '',
+        ownerIdentity: '',
+        pipeline: const [],
+        disabled: false,
+        version: 1,
+        createDate: '',
+        lastChangeDate: '2024-02-01T00:00:00.000Z',
+        parameterDefinitions: const {},
+        parameterValues: const {},
+        policies: const {},
+        createdByOrganizationAdmin: false,
+      ),
+      AutomationRule(
+        id: '2',
+        name: '',
+        description: 'Second rule',
+        ownerService: '',
+        ownerIdentity: '',
+        pipeline: const [],
+        disabled: false,
+        version: 1,
+        createDate: '',
+        lastChangeDate: '2025-01-01T00:00:00.000Z',
+        parameterDefinitions: const {},
+        parameterValues: const {},
+        policies: const {},
+        createdByOrganizationAdmin: false,
+      ),
+      AutomationRule(
+        id: '3',
+        name: '',
+        description: 'Third rule',
+        ownerService: '',
+        ownerIdentity: '',
+        pipeline: const [],
+        disabled: false,
+        version: 1,
+        createDate: '',
+        lastChangeDate: '2023-03-01T00:00:00.000Z',
+        parameterDefinitions: const {},
+        parameterValues: const {},
+        policies: const {},
+        createdByOrganizationAdmin: false,
+      ),
+    ]);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    test('keeps the natural order when the toggle is off', () {
+      expect(sortRuleIndices(model, [0, 1, 2], sortByLastModified: false), [0, 1, 2]);
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('sorts rules by last modification date when the toggle is on', () {
+      expect(sortRuleIndices(model, [0, 1, 2], sortByLastModified: true), [1, 0, 2]);
+    });
   });
 }

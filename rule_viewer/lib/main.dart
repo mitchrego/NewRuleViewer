@@ -13,6 +13,49 @@ const Color _panelBorder = Color(0xFF3C3C3C);
 /// Enum representing the app's data state
 enum AppState { loaded, unloaded }
 
+List<int> sortRuleIndices(
+  AutomationRuleList model,
+  List<int> indices, {
+  required bool sortByLastModified,
+}) {
+  if (!sortByLastModified) {
+    return List<int>.from(indices);
+  }
+
+  final sorted = List<int>.from(indices);
+  sorted.sort((a, b) {
+    final ruleA = model.items[a];
+    final ruleB = model.items[b];
+    final dateA = DateTime.tryParse(ruleA.lastChangeDate);
+    final dateB = DateTime.tryParse(ruleB.lastChangeDate);
+
+    final comparableA = dateA ?? DateTime.fromMillisecondsSinceEpoch(0);
+    final comparableB = dateB ?? DateTime.fromMillisecondsSinceEpoch(0);
+
+    final byDate = comparableB.compareTo(comparableA);
+    if (byDate != 0) {
+      return byDate;
+    }
+
+    return a.compareTo(b);
+  });
+
+  return sorted;
+}
+
+String formatRuleDate(String rawDate) {
+  if (rawDate.trim().isEmpty) {
+    return 'Unknown';
+  }
+
+  final date = DateTime.tryParse(rawDate);
+  if (date == null) {
+    return rawDate;
+  }
+
+  return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -73,23 +116,29 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   bool _searchPanelOpen = false;
+  bool _sortByLastModified = false;
 
+  // Get a filtered list of rule indices based on the search query
   List<int> _calculateVisibleRuleIndices(String query) {
     final model = getRulesModel();
     if (model == null) return [];
 
     final normalized = query.trim().toLowerCase();
-    if (normalized.isEmpty) {
-      return List<int>.generate(model.items.length, (index) => index);
-    }
+    final baseIndices = normalized.isEmpty
+        ? List<int>.generate(model.items.length, (index) => index)
+        : model.items.asMap().entries
+            .where((entry) => entry.value.pipeline.any((stage) {
+                  final script = stage.script;
+                  return script != null && script.toLowerCase().contains(normalized);
+                }))
+            .map((entry) => entry.key)
+            .toList();
 
-    return model.items.asMap().entries
-        .where((entry) => entry.value.pipeline.any((stage) {
-              final script = stage.script;
-              return script != null && script.toLowerCase().contains(normalized);
-            }))
-        .map((entry) => entry.key)
-        .toList();
+    return sortRuleIndices(
+      model,
+      baseIndices,
+      sortByLastModified: _sortByLastModified,
+    );
   }
 
   List<int> get _visibleRuleIndices => _calculateVisibleRuleIndices(_searchQuery);
@@ -313,6 +362,21 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           const SizedBox(height: 12),
+          Row(
+            children: [
+              const Text('Sort by date'),
+              const SizedBox(width: 8),
+              Switch(
+                value: _sortByLastModified,
+                onChanged: (value) {
+                  setState(() {
+                    _sortByLastModified = value;
+                  });
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
           if (!hasMatches)
             Padding(
               padding: const EdgeInsets.only(top: 8),
@@ -336,9 +400,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       final rule = getRulesModel()!.items[index];
                       final displayName =
                           rule.description.isNotEmpty ? rule.description : 'Rule $index';
+                      final lastModified = formatRuleDate(rule.lastChangeDate);
                       return DropdownMenuItem<int>(
                         value: index,
-                        child: Text(displayName),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(displayName),
+                            Text(
+                              'Modified: $lastModified',
+                              style: const TextStyle(fontSize: 12, color: Colors.white70),
+                            ),
+                          ],
+                        ),
                       );
                     }).toList(),
                     dropdownColor: Theme.of(context).cardColor,
