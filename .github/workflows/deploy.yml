@@ -16,12 +16,14 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+        working-directory: ./rule_viewer
 
       - name: Build web
         run: flutter build web --release --base-href "/NewRuleViewer/"
+        working-directory: ./rule_viewer
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          publish_dir: ./rule_viewer/build/web

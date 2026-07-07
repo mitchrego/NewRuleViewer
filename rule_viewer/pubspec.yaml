@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   file_picker: ^11.0.2
   flutter_highlight: ^0.7.0
+  msix: ^3.18.0
 
 dev_dependencies:
   flutter_test:
@@ -89,3 +90,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+msix_config:
+  display_name: Rule Viewer
+  publisher_display_name: Rego Consulting
+  identity_name: com.regoconsulting.ruleviewer
+  msix_version: 1.0.0.0
